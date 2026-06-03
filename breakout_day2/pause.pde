@@ -1,4 +1,0 @@
-void drawPause() {
-  background(darkblue);
-  
-}
