@@ -1,9 +1,6 @@
 // Modes
 int mode;
-final int INTRO = 0;
-final int GAME = 1;
-final int PAUSE = 2;
-final int GAMEOVER = 3;
+final int INTRO = 0,GAME = 1,PAUSE = 2,GAMEOVER = 3;
 
 // Colors
 color darkblue = color(10, 20, 50);

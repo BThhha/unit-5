@@ -8,10 +8,10 @@ void drawGame() {
   }
   
   // Draw bricks
-  float bbX = (width - (cols * bbr) - (cols - 1) * 5) / 2;
+  float bbX = 100;
   float bbY = 80;
-  float gX = 5;
-  float gY = 5;
+  float gX = 50;
+  float gY = 20;
   
   for (int row = 0; row < rows; row++) {
     for (int col = 0; col < cols; col++) {
@@ -49,7 +49,7 @@ void drawGame() {
   textSize(12);
   fill(200);
   textAlign(CENTER);
-  text("Click to pause", width/2, height - 15);
+  text("Click to pause", 400, 675);
   
   // Move paddle
   if (leftPressed && px - pd/2 > 0) px -= paddleSpeed;
@@ -77,13 +77,13 @@ void drawGame() {
   
   // Paddle collision 
   if (dist(bx, by, px, py) < bd/2 + pd/2 && vy > 0) {
-    vx = (bx - px) / 1;
-    vy = (by - py) / 1;
+    vx = (bx - px) / 4;
+    vy = (by - py) / 4;
     
-    // moves up after hitting paddle
+    // moves up 
     if (vy > 0) vy = -vy;
     
-    // doesn't go too slow 
+  
     if (abs(vx) < 1) {
       if (vx > 0) vx = 2;
       else vx = -2;
@@ -95,7 +95,7 @@ void drawGame() {
     }
   }
   
-  // Brick collision (SIMPLE)
+  // Brick collision 
   for (int row = 0; row < rows; row++) {
     for (int col = 0; col < cols; col++) {
       if (bricks[row][col] == 1) {
@@ -107,7 +107,7 @@ void drawGame() {
           totalBricks--;
           score += 10;
           
-          // Simple bounce: reverse both directions a little
+          //  bounce
           vx = (bx - brickX) / 5;
           vy = (by - brickY) / 5;
           
@@ -135,7 +135,7 @@ void drawGame() {
     mode = GAMEOVER;
   }
   
-  // Ball falls off bottom
+  // Ball falls 
   if (by + bd/2 >= height) {
     lives--;
     if (loseSound != null) {
@@ -150,8 +150,7 @@ void drawGame() {
       by = height - 100;
       vx = random(-3, 3);
       vy = -ballSpeed;
-      if (abs(vx) < 1) vx = 2;
-      //px = width/2;
+      
     }
   }
 }
