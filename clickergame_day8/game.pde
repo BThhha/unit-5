@@ -1,28 +1,30 @@
 void drawGame() {
   background(30, 100, 30);
-  
+  circlephoto=skins[currentSkin];
   // Move target
-  targetX = targetX + targetVx;
-  targetY = targetY + targetVy;
+  tgX = tgX + tgVx;
+  tgY = tgY + tgVy;
   
   // Bounce off walls 
-  if (targetX < targetSize/2 || targetX > 800 - targetSize/2) {
-    targetVx = targetVx * -1;  
+  if (tgX < targetSize/2 || tgX > 800 - targetSize/2) {
+    tgVx = tgVx * -1;  
   }
   // Bounce off walls
-  if (targetY < targetSize/2 || targetY > 800 - targetSize/2) {
-    targetVy = targetVy * -1;   
+  if (tgY < targetSize/2 || tgY > 800 - targetSize/2) {
+    tgVy = tgVy * -1;   
   }
   
-  // Keep target inside screen (0 to 800)
-  targetX = constrain(targetX, targetSize/2, 800 - targetSize/2);
-  targetY = constrain(targetY, targetSize/2, 800 - targetSize/2);
+  // Keep target
+  tgX = constrain(tgX, targetSize/2, 800 - targetSize/2);
+  tgY = constrain(tgY, targetSize/2, 800 - targetSize/2);
   
-  // Draw target (circle with cross)
+  // Draw target 
   fill(255);
   stroke(0);
   strokeWeight(4);
-  circle(targetX, targetY, targetSize);
+  //circle(targetX, targetY, targetSize);
+  //
+  image(circlephoto, tgX, tgY, targetSize, targetSize);
   
  
   
@@ -31,31 +33,33 @@ void drawGame() {
   noStroke();
   textSize(24);
   text("Score: " + playerScore, 70, 50);
-  text("Misses: " + missCount + "/" + maxMisses, 800 - 100, 50);
+  text("Misses: " + missCount + "/" + maxMisses, 700, 50);
+  text("High Score: " + highScore, 70, 90);
   textSize(14);
   text("P = pause", 800/2, 800 - 30);
 }
 
-// ========== CLICK ON TARGET (called when mouse is clicked) ==========
+
 void clickGame() {
-  float distance = dist(mouseX, mouseY, targetX, targetY);
+  float distance = dist(mouseX, mouseY, tgX, tgY);
   
-  // Check if click is inside target (with extra 15px help area)
-  if (distance < targetSize/2 + 15) {
+  
+  if (distance < targetSize/2 + 25) {
     playerScore = playerScore + 10;
     targetSize = targetSize - 5;
     if (targetSize < 30) targetSize = 30;
     
+    
     // Speed up 
-    targetVx = targetVx * 1.1;
-    targetVy = targetVy * 1.1;
+    //targetVx = targetVx * 1.1;
+    //targetVy = targetVy * 1.1;
     
     // Push target away from click 
-    if (mouseX > targetX) targetVx = targetVx + 2;
-    else targetVx = targetVx - 2;
+    if (mouseX > tgX) tgVx = tgVx + 2;
+    else tgVx = tgVx - 2;
     
-    if (mouseY > targetY) targetVy = targetVy + 2;
-    else targetVy = targetVy - 2;
+    if (mouseY > tgY) tgVy = tgVy + 2;
+    else tgVy = tgVy - 2;
     
     // Play hit sound
     if (coin != null) {
@@ -73,6 +77,7 @@ void clickGame() {
     
     // Check game over
     if (missCount >= maxMisses) {
+      updateHighScore();
       gameMode = MODE_GAMEOVER;
       if (gameover != null) {
         gameover.rewind();

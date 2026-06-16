@@ -2,7 +2,7 @@ import ddf.minim.*;
 Minim minim;
 AudioPlayer theme, coin, bump, gameover;
 
-
+PImage circlephoto;
 int gameMode;
 final int MODE_INTRO = 0;
 final int MODE_GAME = 1;
@@ -12,14 +12,15 @@ final int MODE_OPTIONS = 4;
 final int MODE_SETTINGS = 5;
 
 
-float targetX, targetY;      
-float targetVx, targetVy;    
+float tgX, tgY;      
+float tgVx, tgVy;    
 float targetSize = 100;      
 
 
 int playerScore = 0;
 int missCount = 0;
 int maxMisses = 5;
+int highScore = 0;  
 
 PImage[] skins = new PImage[4];
 int currentSkin = 0;
@@ -44,9 +45,9 @@ void setup() {
   
   gameMode = MODE_INTRO;
   
-  skins[0] = loadImage("baby meme");
-  skins[1] = loadImage("shocked guy meme");
-  skins[2] = loadImage("cat meme");
+  skins[0] = loadImage("baby meme.png");
+  skins[1] = loadImage("shocked guy meme.png");
+  skins[2] = loadImage("cat meme.png");
   
   if (skins[0] != null) skinReady = true;
 }
@@ -63,19 +64,16 @@ void draw() {
 
 
 void resetGame() {
-  targetX = width/2;                    // center X
-  targetY = height/2;                   // center Y
-  targetVx = random(-4, 4);             // random X speed
-  targetVy = random(-4, 4);             // random Y speed
+  tgX = 400;                    
+  tgY = 350;                   
+  tgVx = random(-4, 4);       
+  tgVy = random(-4, 4);             
   
-  // Make sure speed is not too slow
-  if (abs(targetVx) < 1) targetVx = 2;
-  if (abs(targetVy) < 1) targetVy = 2;
   
   targetSize = 100;                     
   playerScore = 0;                      
   missCount = 0;                       
-  // Play background music
+  // background music
   if (theme != null) {
     theme.rewind();
     theme.play();
