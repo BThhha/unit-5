@@ -18,8 +18,8 @@ final int GAMEOVER = 3;
 int gameType = 1;
 boolean vsAI = true;
 
-//paddle - FULL CIRCLES
-float leftPaddleX = 40;
+//paddle 
+float leftPaddleX = 10;
 float leftPaddleY;
 float rightPaddleX;
 float rightPaddleY;
@@ -39,6 +39,8 @@ float ballRadius = 10;
 float ballVx, ballVy;
 float ballSpeed = 5;
 
+
+float titleY = 200;
 //score
 int leftScore = 0;
 int rightScore = 0;
@@ -54,9 +56,11 @@ color paddleColor = color(255, 0, 0);  // RED
 color ballColor = color(255, 200, 100);
 color textColor = color(255);
 
+float as= 10;
+
 void setup() {
   size(800, 600);
-  rightPaddleX = width - 40;
+  rightPaddleX = width - 10;
   mode = INTRO;
   resetGame();
   
