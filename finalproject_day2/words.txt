@@ -1,0 +1,11 @@
+
+cat
+dog
+apple
+book
+river
+computer
+education
+adventure
+beautiful
+friend
